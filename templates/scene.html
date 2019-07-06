@@ -1,0 +1,54 @@
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> 
+        <script>
+            function setLoop() {
+                $('#loop').val("true")
+            }
+        </script>
+</head>
+
+<body>
+    <h2>{{scene.name}}</h2>
+    <form method="post">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Colour</th>
+                    {% for light in scene.lights %}
+                    <th scope="col">{{light.name}}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for color in scene.colors %}
+                <tr>
+                    <td>
+                        <div style="width: 100%; height: 25px; background: #{{color.hex}}"></div>
+                    </td>
+                    {% set outer_loop = loop %}
+                    {% for light in scene.lights %}
+                    <td>
+                        <input type="radio" name="light-{{light.id}}-color" value="{{outer_loop.index}}">
+                    </td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <button class="btn btn-primary">Set</button>
+        <div class="form-group">
+            <label for="transitionTime">Transition Time:</label>
+            <input type="text" name="transitionTime">
+            <button class="btn btn-primary" id="startButton" onclick="setLoop()">Start</button>
+        </div>
+        <a href="{{request.path}}/delete"><button type="button" class="btn btn-danger">Delete</button></a>
+        <input type="hidden" id="loop" name="loop" value="false">
+    </form>
+    <a href="{{back}}">Back</a>
+</body>
+
+</html>

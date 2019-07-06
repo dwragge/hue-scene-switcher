@@ -1,0 +1,33 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> 
+        <script>
+            let elementCounter = 1
+            function add() {
+                elementCounter++
+                const elem = 
+                `<div class="form-group">
+                   <label for="hexColour-${elementCounter}">Hex</label>
+                   <input type="text" class="form-control" name="hexColour-${elementCounter}" id ="hexColour-${elementCounter}">
+                </div>`
+                $('#addColour').before(elem)
+            }
+        </script>
+    </head>
+    <body>
+        <form action="{{request.path}}" method="post" id="theForm">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" class="form-control" id ="name" name="name">
+            </div>
+            <h2>Colours:</h2>
+            <div class="form-group">
+                <label for="hexColour-1">Hex</label>
+                <input type="text" class="form-control" name="hexColour-1" id="hexColour-1">
+            </div>
+            <button type="button" id="addColour" onclick="add()" class="btn btn-primary">Add Colour</button>
+            <button type="submit" class="btn btn-primary">Create</button>
+        </form>
+    </body>
+</html>
